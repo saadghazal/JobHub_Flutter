@@ -30,7 +30,7 @@ class JobHorizontalTile extends StatelessWidget {
               Row(
                 children: [
                   const CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/user.png'),
+                    backgroundImage: AssetImage('assets/images/Facebook.png'),
                   ),
                   const WidthSpacer(width: 15),
                   ReusableText(

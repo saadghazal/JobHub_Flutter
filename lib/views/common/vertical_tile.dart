@@ -30,7 +30,7 @@ class VerticalTile extends StatelessWidget {
                     CircleAvatar(
                       backgroundColor: Color(kLightGrey.value),
                       radius: 30,
-                      backgroundImage: AssetImage('assets/images/user.png'),
+                      backgroundImage: AssetImage('assets/images/slack.png'),
                     ),
                     const WidthSpacer(width: 10),
                     Column(
@@ -38,7 +38,7 @@ class VerticalTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ReusableText(
-                          text: 'Amazon',
+                          text: 'Slack',
                           style: appstyle(
                             20,
                             Color(kDark.value),
