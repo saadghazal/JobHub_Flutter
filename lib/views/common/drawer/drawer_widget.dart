@@ -9,10 +9,14 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         ZoomDrawer.of(context)!.toggle();
       },
-      child: SvgPicture.asset('assets/icons/menu.svg',width: 30.w,height: 30.h,),
+      child: SvgPicture.asset(
+        'assets/icons/menu.svg',
+        width: 30.w,
+        height: 30.h,
+      ),
     );
   }
 }
