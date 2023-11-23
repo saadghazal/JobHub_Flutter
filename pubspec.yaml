@@ -27,6 +27,7 @@ dependencies:
   flutter_animate: ^4.1.1+1
   image_cropper: ^3.0.3
   image_picker: ^0.8.7+4
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:

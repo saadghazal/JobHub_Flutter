@@ -9,6 +9,8 @@ import 'views/common/exports.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+ 
+
 
   runApp(
     MultiProvider(
