@@ -2,14 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jobhub/controllers/exports.dart';
+import 'package:jobhub/views/ui/auth/login.dart';
+import 'package:jobhub/views/ui/mainscreen.dart';
 import 'package:jobhub/views/ui/onboarding/onboarding_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'views/common/exports.dart';
 
+Widget defaultHomeScreen = const OnBoardingScreen();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- 
+
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final entryPoint = prefs.getBool('entry_point') ?? false;
+  final loggedIn = prefs.getBool('logged_in') ?? false;
+
+  if(entryPoint && !loggedIn){
+    defaultHomeScreen = const LoginPage();
+  }else if(entryPoint && loggedIn){
+    defaultHomeScreen = const MainScreen();
+  }
 
 
   runApp(
@@ -66,7 +80,7 @@ class MyApp extends StatelessWidget {
             iconTheme: IconThemeData(color: Color(kDark.value)),
             primarySwatch: Colors.grey,
           ),
-          home: const OnBoardingScreen(),
+          home: defaultHomeScreen,
         );
       },
     );
