@@ -34,12 +34,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Consumer<LoginNotifier>(
       builder: (context, loginProvider, child) {
+        loginProvider.getPrefs();
         return Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(50),
             child: CustomAppBar(
               text: 'Login',
-              child: GestureDetector(
+              child: loginProvider.entryPoint && !loginProvider.loggedIn ? SizedBox.shrink() : GestureDetector(
                 onTap: () {
                   Get.back();
                 },
