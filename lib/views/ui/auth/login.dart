@@ -40,12 +40,14 @@ class _LoginPageState extends State<LoginPage> {
             preferredSize: Size.fromHeight(50),
             child: CustomAppBar(
               text: 'Login',
-              child: loginProvider.entryPoint && !loginProvider.loggedIn ? SizedBox.shrink() : GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: const Icon(CupertinoIcons.arrow_left),
-              ),
+              child: loginProvider.entryPoint && !loginProvider.loggedIn
+                  ? SizedBox.shrink()
+                  : GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: const Icon(CupertinoIcons.arrow_left),
+                    ),
             ),
           ),
           body: Padding(
@@ -71,41 +73,49 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const HeightSpacer(size: 50),
-                CustomTextField(
-                  controller: email,
-                  keyboardType: TextInputType.emailAddress,
-                  hintText: 'Email',
-                  validator: (value) {
-                    if (value!.isEmpty || !value.isEmail) {
-                      return "Please enter valid email.";
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                const HeightSpacer(size: 20),
-                CustomTextField(
-                  controller: password,
-                  keyboardType: TextInputType.text,
-                  hintText: 'Password',
-                  obscureText: loginProvider.obscureText,
-                  validator: (value) {
-                    if (value!.isEmpty || value.length < 7) {
-                      return "Please enter valid password.";
-                    } else {
-                      return null;
-                    }
-                  },
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      loginProvider.obscureText = !loginProvider.obscureText;
-                    },
-                    child: Icon(
-                      loginProvider.obscureText
-                          ? Icons.visibility
-                          : Icons.visibility_off_rounded,
-                      color: Color(kDark.value),
-                    ),
+                Form(
+                  key: loginProvider.loginFormKey,
+                  child: Column(
+                    children: [
+                      CustomTextField(
+                        controller: email,
+                        keyboardType: TextInputType.emailAddress,
+                        hintText: 'Email',
+                        validator: (value) {
+                          if (value!.isEmpty || !value.isEmail) {
+                            return "Please enter valid email.";
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      const HeightSpacer(size: 20),
+                      CustomTextField(
+                        controller: password,
+                        keyboardType: TextInputType.text,
+                        hintText: 'Password',
+                        obscureText: loginProvider.obscureText,
+                        validator: (value) {
+                          if (value!.isEmpty || value.length < 7) {
+                            return "Please enter valid password.";
+                          } else {
+                            return null;
+                          }
+                        },
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            loginProvider.obscureText =
+                                !loginProvider.obscureText;
+                          },
+                          child: Icon(
+                            loginProvider.obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off_rounded,
+                            color: Color(kDark.value),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 HeightSpacer(size: 10),
@@ -130,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                 HeightSpacer(size: 50),
                 CustomButton(
                   onTap: () {
-                    Get.offAll(()=>MainScreen());
+                    Get.offAll(() => MainScreen());
                   },
                   text: "Login",
                 ),

@@ -11,6 +11,13 @@ class LoginNotifier extends ChangeNotifier {
     _obscureText = newState;
     notifyListeners();
   }
+  bool _firstTime = true;
+
+  bool get firstTime => _firstTime;
+  set firstTime(bool newState){
+    _firstTime = newState;
+    notifyListeners();
+  }
   bool? _entryPoint;
 
   bool get entryPoint => _entryPoint ?? false;
@@ -33,6 +40,17 @@ class LoginNotifier extends ChangeNotifier {
     entryPoint = prefs.getBool('entry_point') ?? false;
     loggedIn = prefs.getBool('logged_in') ?? false;
 
-
   }
+  final loginFormKey = GlobalKey<FormState>();
+
+  bool validateAndSave(){
+    final form = loginFormKey.currentState;
+    if(form!.validate()){
+      form.save();
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 }
