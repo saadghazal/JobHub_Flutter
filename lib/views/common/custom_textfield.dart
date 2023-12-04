@@ -22,46 +22,48 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color(kLightGrey.value),
-      child: TextFormField(
-        controller: controller,
-        validator: validator,
-        cursorHeight: 25,
-        style: appstyle(
+    return TextFormField(
+      controller: controller,
+      validator: validator,
+      cursorHeight: 25,
+      style: appstyle(
+        14,
+        Color(kDark.value),
+        FontWeight.w500,
+      ),
+      keyboardType: keyboardType,
+      obscureText: obscureText ?? false,
+      decoration: InputDecoration(
+        hintText: hintText,
+        fillColor: Color(kLightGrey.value),
+        filled: true,
+        suffixIcon: suffixIcon,
+        hintStyle: appstyle(
           14,
-          Color(kDark.value),
+          Color(kDarkGrey.value),
           FontWeight.w500,
         ),
-        keyboardType: keyboardType,
-        obscureText: obscureText ?? false,
-        decoration: InputDecoration(
-          hintText: hintText,
-          suffixIcon: suffixIcon,
-          hintStyle: appstyle(
-            14,
-            Color(kDarkGrey.value),
-            FontWeight.w500,
-          ),
-          errorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.zero,
-              borderSide: BorderSide(color: Colors.red, width: 0.5)),
-          focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.zero,
-              borderSide: BorderSide(color: Colors.transparent, width: 0.5)),
-          focusedErrorBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.zero,
-            borderSide: BorderSide(color: Colors.red, width: 0.0),
-          ),
-          disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.zero,
-              borderSide:
-                  BorderSide(color: Color(kDarkGrey.value), width: 0.5)),
-          enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.zero,
-              borderSide: BorderSide(color: Colors.transparent, width: 0.0)),
-          border: InputBorder.none,
+        errorBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.zero,
+          borderSide: BorderSide(color: Colors.red, width: 0.5),
         ),
+        focusedBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.zero,
+          borderSide: BorderSide(color: Colors.transparent, width: 0.5),
+        ),
+        focusedErrorBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.zero,
+          borderSide: BorderSide(color: Colors.red, width: 0.0),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.zero,
+          borderSide: BorderSide(color: Color(kDarkGrey.value), width: 0.5),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.zero,
+          borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+        ),
+        border: InputBorder.none,
       ),
     );
   }

@@ -17,7 +17,7 @@ class LoginNotifier extends ChangeNotifier {
     _obscureText = newState;
     notifyListeners();
   }
-  bool _firstTime = false;
+  bool _firstTime = true;
 
   bool get firstTime => _firstTime;
   set firstTime(bool newState){

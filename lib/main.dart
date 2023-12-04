@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jobhub/controllers/exports.dart';
 import 'package:jobhub/views/ui/auth/login.dart';
+import 'package:jobhub/views/ui/auth/update_user.dart';
 import 'package:jobhub/views/ui/mainscreen.dart';
 import 'package:jobhub/views/ui/onboarding/onboarding_screen.dart';
 import 'package:provider/provider.dart';
@@ -80,7 +81,7 @@ class MyApp extends StatelessWidget {
             iconTheme: IconThemeData(color: Color(kDark.value)),
             primarySwatch: Colors.grey,
           ),
-          home: defaultHomeScreen,
+          home: PersonalDetails(),
         );
       },
     );

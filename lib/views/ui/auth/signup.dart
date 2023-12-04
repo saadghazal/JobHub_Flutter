@@ -6,7 +6,6 @@ import 'package:jobhub/controllers/exports.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/app_constants.dart';
-import '../../../controllers/login_provider.dart';
 import '../../common/app_bar.dart';
 import '../../common/app_style.dart';
 import '../../common/custom_btn.dart';
