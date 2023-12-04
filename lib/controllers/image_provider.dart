@@ -12,7 +12,7 @@ class ImageUploader extends ChangeNotifier {
   List<String> imageFil = [];
 
   void pickImage() async {
-    XFile? _imageFile = await _picker.pickImage(source: ImageSource.camera);
+    XFile? _imageFile = await _picker.pickImage(source: ImageSource.gallery);
 
     _imageFile = await cropImage(imageFile: _imageFile!);
     if (_imageFile != null) {

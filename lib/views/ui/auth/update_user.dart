@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jobhub/controllers/exports.dart';
@@ -54,14 +56,32 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                       FontWeight.bold,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: null,
-                    child: CircleAvatar(
-                      backgroundColor: Color(kLightBlue.value),
-                      child: Center(
-                        child: Icon(Icons.photo_filter_rounded),
-                      ),
-                    ),
+                  Consumer<ImageUploader>(
+                    builder: (context, imageUploader, child) {
+                      return imageUploader.imageFil.isEmpty
+                          ? GestureDetector(
+                              onTap: () {
+                                imageUploader.pickImage();
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: Color(kLightBlue.value),
+                                child: Center(
+                                  child: Icon(Icons.photo_filter_rounded),
+                                ),
+                              ),
+                            )
+                          : GestureDetector(
+                              onTap: () {
+                                imageUploader.imageFil.clear();
+                                setState(() {});
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: Color(kLightBlue.value),
+                                backgroundImage:
+                                    FileImage(File(imageUploader.imageFil[0])),
+                              ),
+                            );
+                    },
                   ),
                 ],
               ),
