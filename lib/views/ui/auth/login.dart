@@ -12,6 +12,8 @@ import 'package:jobhub/views/ui/auth/signup.dart';
 import 'package:jobhub/views/ui/mainscreen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../models/request/auth/login_model.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -140,7 +142,19 @@ class _LoginPageState extends State<LoginPage> {
                 HeightSpacer(size: 50),
                 CustomButton(
                   onTap: () {
-                    Get.offAll(() => MainScreen());
+                    if (loginProvider.validateAndSave()) {
+                      LoginModel model = LoginModel(
+                          email: email.text, password: password.text);
+                      loginProvider.userLogin(model: model);
+                    } else {
+                      Get.snackbar(
+                        'Sign in Failed',
+                        'Please Check Your Credentials',
+                        colorText: Color(kLight.value),
+                        backgroundColor: Colors.red,
+                        icon: Icon(Icons.add_alert),
+                      );
+                    }
                   },
                   text: "Login",
                 ),
