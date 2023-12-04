@@ -87,6 +87,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               ),
               HeightSpacer(size: 20),
               Form(
+                key: loginProvider.profileFormKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
