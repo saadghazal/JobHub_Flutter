@@ -51,7 +51,7 @@ void main() async {
           create: (context) => BookMarkNotifier(),
         ),
         ChangeNotifierProvider(
-          create: (context) => ImageUpoader(),
+          create: (context) => ImageUploader(),
         ),
         ChangeNotifierProvider(
           create: (context) => ProfileNotifier(),
