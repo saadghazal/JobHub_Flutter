@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jobhub/constants/app_constants.dart';
 import 'package:jobhub/views/common/app_style.dart';
 
@@ -43,24 +44,24 @@ class CustomTextField extends StatelessWidget {
           Color(kDarkGrey.value),
           FontWeight.w500,
         ),
-        errorBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.zero,
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(color: Colors.red, width: 0.5),
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.zero,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(color: Colors.transparent, width: 0.5),
         ),
-        focusedErrorBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.zero,
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(color: Colors.red, width: 0.0),
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.zero,
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(color: Color(kDarkGrey.value), width: 0.5),
         ),
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.zero,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(color: Colors.transparent, width: 0.0),
         ),
         border: InputBorder.none,

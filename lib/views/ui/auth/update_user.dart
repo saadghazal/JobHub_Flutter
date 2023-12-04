@@ -126,7 +126,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Please enter a valid phone number";
+                          return "Please enter a valid skill";
                         }
                         return null;
                       },
@@ -138,7 +138,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Please enter a valid phone number";
+                          return "Please enter a valid skill";
                         }
                         return null;
                       },
@@ -150,7 +150,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Please enter a valid phone number";
+                          return "Please enter a valid skill";
                         }
                         return null;
                       },
@@ -162,7 +162,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Please enter a valid phone number";
+                          return "Please enter a valid skill";
                         }
                         return null;
                       },
@@ -174,7 +174,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Please enter a valid phone number";
+                          return "Please enter a valid skill";
                         }
                         return null;
                       },
