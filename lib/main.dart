@@ -1,7 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:jobhub/controllers/exports.dart';
+import 'package:jobhub/firebase_options.dart';
 import 'package:jobhub/views/ui/auth/login.dart';
 import 'package:jobhub/views/ui/auth/update_user.dart';
 import 'package:jobhub/views/ui/mainscreen.dart';
@@ -15,17 +17,17 @@ Widget defaultHomeScreen = const OnBoardingScreen();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final entryPoint = prefs.getBool('entry_point') ?? false;
   final loggedIn = prefs.getBool('logged_in') ?? false;
 
-  if(entryPoint && !loggedIn){
+  if (entryPoint && !loggedIn) {
     defaultHomeScreen = const LoginPage();
-  }else if(entryPoint && loggedIn){
+  } else if (entryPoint && loggedIn) {
     defaultHomeScreen = const MainScreen();
   }
-
 
   runApp(
     MultiProvider(
