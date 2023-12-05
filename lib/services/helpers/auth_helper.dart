@@ -45,15 +45,15 @@ class AuthHelper {
 
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
-      'token': 'Bearer $token'
+      'token': 'Bearer $token',
     };
     var url = Uri.https(Config.apiUrl, Config.profileUrl);
+    print(jsonEncode(profileReq));
     var response = await client.put(
       url,
       headers: requestHeaders,
       body: jsonEncode(profileReq),
     );
-    print(response.body);
     if (response.statusCode == 200) {
       return true;
     } else {
@@ -70,10 +70,10 @@ class AuthHelper {
       headers: requestHeaders,
       body: jsonEncode(model),
     );
-    print(response.body);
     if (response.statusCode == 201) {
       String token = signUpResponseModelFromJson(response.body).userToken;
       await prefs.setString('token', token);
+      await prefs.setBool('logged_in', true);
       return true;
     } else {
       return false;
@@ -82,13 +82,16 @@ class AuthHelper {
 
   static Future<ProfileRes> getProfile() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+    final token = prefs.getString('token');
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'token': 'Bearer $token'
+    };
     var url = Uri.https(Config.apiUrl, Config.profileUrl);
     var response = await client.get(
       url,
       headers: requestHeaders,
     );
-    print(response.body);
     if (response.statusCode == 200) {
       var profile = profileResFromJson(response.body);
       return profile;

@@ -44,238 +44,242 @@ class _ProfilePageState extends State<ProfilePage> {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                }
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: [
-                      Container(
-                        width: width,
-                        height: height * 0.12,
-                        color: Color(kLight.value),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20.r),
-                                  child: CachedNetworkImage(
+                } else if (snapshot.hasError) {
+                  return Text("Error ${snapshot.error}");
+                } else {
+                  final UserData = snapshot.data;
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: [
+                        Container(
+                          width: width,
+                          height: height * 0.12,
+                          color: Color(kLight.value),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    child: CachedNetworkImage(
                                       width: 80.w,
                                       height: 100.h,
-                                      imageUrl:
-                                          'https://instasize.com/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fmunkee%2Fimage%2Fupload%2Fw_1000%2Cc_fill%2Car_1%3A1%2Cg_auto%2Cr_max%2Fv1682630058%2Finstasize-website%2Flearn%2Fblonde-girl-sitting-down-pink-jacket.webp&w=828&q=75'),
-                                ),
-                                WidthSpacer(width: 10),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ReusableText(
-                                      text: 'The Weeknd',
-                                      style: appstyle(
-                                        20,
-                                        Color(kDark.value),
-                                        FontWeight.w600,
-                                      ),
+                                      imageUrl: UserData!.profileImage,
                                     ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          MaterialIcons.location_pin,
-                                          color: Color(kDarkGrey.value),
+                                  ),
+                                  WidthSpacer(width: 10),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ReusableText(
+                                        text: UserData.username,
+                                        style: appstyle(
+                                          20,
+                                          Color(kDark.value),
+                                          FontWeight.w600,
                                         ),
-                                        WidthSpacer(width: 5),
-                                        ReusableText(
-                                          text: 'New York',
-                                          style: appstyle(
-                                            16,
-                                            Color(kDarkGrey.value),
-                                            FontWeight.w600,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Icon(
+                                            MaterialIcons.location_pin,
+                                            color: Color(kDarkGrey.value),
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Icon(
-                                Feather.edit,
-                                size: 18.sp,
+                                          WidthSpacer(width: 5),
+                                          ReusableText(
+                                            text: UserData.location,
+                                            style: appstyle(
+                                              16,
+                                              Color(kDarkGrey.value),
+                                              FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ],
                               ),
-                            )
-                          ],
+                              GestureDetector(
+                                onTap: () {},
+                                child: Icon(
+                                  Feather.edit,
+                                  size: 18.sp,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      HeightSpacer(size: 20),
-                      Stack(
-                        children: [
-                          Container(
-                            width: width,
-                            height: height * 0.12,
-                            color: Color(kLightGrey.value),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(left: 12.w),
-                                  height: 70.h,
-                                  width: 60.w,
-                                  color: Color(kLight.value),
-                                  child: const Icon(
-                                    FontAwesome5Regular.file_pdf,
-                                    color: Colors.red,
-                                    size: 40,
+                        HeightSpacer(size: 20),
+                        Stack(
+                          children: [
+                            Container(
+                              width: width,
+                              height: height * 0.12,
+                              color: Color(kLightGrey.value),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 12.w),
+                                    height: 70.h,
+                                    width: 60.w,
+                                    color: Color(kLight.value),
+                                    child: const Icon(
+                                      FontAwesome5Regular.file_pdf,
+                                      color: Colors.red,
+                                      size: 40,
+                                    ),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ReusableText(
+                                        text: 'Resume from JobHub',
+                                        style: appstyle(
+                                          18,
+                                          Color(kDark.value),
+                                          FontWeight.w500,
+                                        ),
+                                      ),
+                                      ReusableText(
+                                        text: 'JobHub Resume',
+                                        style: appstyle(
+                                          16,
+                                          Color(kDarkGrey.value),
+                                          FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  WidthSpacer(width: 1),
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              top: 2.h,
+                              right: 5.w,
+                              child: GestureDetector(
+                                onTap: () {},
+                                child: ReusableText(
+                                  text: 'Edit',
+                                  style: appstyle(
+                                    16,
+                                    Color(kOrange.value),
+                                    FontWeight.w500,
                                   ),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ReusableText(
-                                      text: 'Resume from JobHub',
-                                      style: appstyle(
-                                        18,
-                                        Color(kDark.value),
-                                        FontWeight.w500,
-                                      ),
-                                    ),
-                                    ReusableText(
-                                      text: 'JobHub Resume',
-                                      style: appstyle(
-                                        16,
-                                        Color(kDarkGrey.value),
-                                        FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                WidthSpacer(width: 1),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 2.h,
-                            right: 5.w,
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: ReusableText(
-                                text: 'Edit',
-                                style: appstyle(
-                                  16,
-                                  Color(kOrange.value),
-                                  FontWeight.w500,
-                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      HeightSpacer(size: 20),
-                      Container(
-                        padding: EdgeInsets.only(left: 8.w),
-                        width: width,
-                        height: height * 0.06,
-                        color: Color(kLightGrey.value),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: ReusableText(
-                            text: 'saedghazal000@gmail.com',
-                            style: appstyle(
-                              16,
-                              Color(kDark.value),
-                              FontWeight.w600,
+                          ],
+                        ),
+                        HeightSpacer(size: 20),
+                        Container(
+                          padding: EdgeInsets.only(left: 8.w),
+                          width: width,
+                          height: height * 0.06,
+                          color: Color(kLightGrey.value),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: ReusableText(
+                              text: UserData.email,
+                              style: appstyle(
+                                16,
+                                Color(kDark.value),
+                                FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      HeightSpacer(size: 20),
-                      Container(
-                        padding: EdgeInsets.only(left: 8.w),
-                        width: width,
-                        height: height * 0.06,
-                        color: Color(kLightGrey.value),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
+                        HeightSpacer(size: 20),
+                        Container(
+                          padding: EdgeInsets.only(left: 8.w),
+                          width: width,
+                          height: height * 0.06,
+                          color: Color(kLightGrey.value),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  "assets/icons/jo.svg",
+                                  width: 20.w,
+                                  height: 20.h,
+                                ),
+                                WidthSpacer(width: 15.w),
+                                ReusableText(
+                                  text: '+962${UserData.phone}',
+                                  style: appstyle(
+                                    16,
+                                    Color(kDark.value),
+                                    FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        HeightSpacer(size: 20),
+                        Container(
+                          color: Color(kLightGrey.value),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SvgPicture.asset(
-                                "assets/icons/jo.svg",
-                                width: 20.w,
-                                height: 20.h,
+                              Padding(
+                                padding: EdgeInsets.all(8.h),
+                                child: ReusableText(
+                                  text: "Skills",
+                                  style: appstyle(
+                                    16,
+                                    Color(kDark.value),
+                                    FontWeight.w600,
+                                  ),
+                                ),
                               ),
-                              WidthSpacer(width: 15.w),
-                              ReusableText(
-                                text: '+962792077214',
-                                style: appstyle(
-                                  16,
-                                  Color(kDark.value),
-                                  FontWeight.w600,
+                              HeightSpacer(size: 3),
+                              SizedBox(
+                                height: height * 0.5,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+                                  child: ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                          width: width,
+                                          height: height * 0.06,
+                                          color: Color(kLight.value),
+                                          alignment: Alignment.centerLeft,
+                                          child: ReusableText(
+                                            text: UserData.skills[index],
+                                            style: appstyle(
+                                              16,
+                                              Color(kDark.value),
+                                              FontWeight.normal,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    itemCount: UserData.skills.length,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                      HeightSpacer(size: 20),
-                      Container(
-                        color: Color(kLightGrey.value),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(8.h),
-                              child: ReusableText(
-                                text: "Skills",
-                                style: appstyle(
-                                  16,
-                                  Color(kDark.value),
-                                  FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            HeightSpacer(size: 3),
-                            SizedBox(
-                              height: height * 0.5,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-                                child: ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                        width: width,
-                                        height: height * 0.06,
-                                        color: Color(kLight.value),
-                                        alignment: Alignment.centerLeft,
-                                        child: ReusableText(
-                                          text: skills[index],
-                                          style: appstyle(
-                                            16,
-                                            Color(kDark.value),
-                                            FontWeight.normal,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  itemCount: skills.length,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                );
+                        )
+                      ],
+                    ),
+                  );
+                }
               });
         },
       ),

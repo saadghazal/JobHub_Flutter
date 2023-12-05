@@ -79,8 +79,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                               },
                               child: CircleAvatar(
                                 backgroundColor: Color(kLightBlue.value),
-                                backgroundImage:
-                                    FileImage(File(imageUploader.imageFil[0])),
+                                backgroundImage: FileImage(File(imageUploader.imageFil[0])),
                               ),
                             );
                     },
@@ -200,7 +199,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                                 ProfileUpdateReq profile = ProfileUpdateReq(
                                   location: location.text,
                                   phone: phone.text,
-                                  profile: imageUploader.imageUrl.toString(),
+                                  profile: imageUploader.imageUrl!,
                                   skills: [
                                     skill0.text,
                                     skill1.text,
@@ -209,8 +208,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                                     skill4.text
                                   ],
                                 );
-                                loginProvider.updateProfile(
-                                    profileReq: profile);
+                                print(profile.profile);
+                                loginProvider.updateProfile(profileReq: profile);
                               }
                             } else {
                               return;
