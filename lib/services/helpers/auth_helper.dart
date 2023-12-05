@@ -24,8 +24,7 @@ class AuthHelper {
 
       String token = loginResponseModelFromJson(response.body).userToken;
       String userId = loginResponseModelFromJson(response.body).id;
-      String profileImage =
-          loginResponseModelFromJson(response.body).profileImage;
+      String profileImage = loginResponseModelFromJson(response.body).profileImage;
 
       await prefs.setString('token', token);
       await prefs.setString('user_id', userId);
@@ -70,7 +69,7 @@ class AuthHelper {
       headers: requestHeaders,
       body: jsonEncode(model),
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return true;
     } else {
       return false;

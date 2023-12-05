@@ -4,7 +4,6 @@ import 'package:jobhub/constants/app_constants.dart';
 import 'package:jobhub/models/request/auth/login_model.dart';
 import 'package:jobhub/models/request/auth/profile_update_model.dart';
 import 'package:jobhub/services/helpers/auth_helper.dart';
-import 'package:jobhub/views/ui/auth/update_user.dart';
 import 'package:jobhub/views/ui/mainscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,14 +13,6 @@ class LoginNotifier extends ChangeNotifier {
   bool get obscureText => _obscureText;
   set obscureText(bool newState) {
     _obscureText = newState;
-    notifyListeners();
-  }
-
-  bool _firstTime = true;
-
-  bool get firstTime => _firstTime;
-  set firstTime(bool newState) {
-    _firstTime = newState;
     notifyListeners();
   }
 
@@ -73,11 +64,9 @@ class LoginNotifier extends ChangeNotifier {
 
   userLogin({required LoginModel model}) {
     AuthHelper.login(model: model).then((response) {
-      if (response && firstTime) {
-        Get.offAll(() => const PersonalDetails());
-      } else if (response && !firstTime) {
+      if (response) {
         Get.offAll(() => MainScreen());
-      } else if (!response) {
+      } else {
         Get.snackbar('Sign in Failed', 'Please Check Your Credentials',
             colorText: Color(kLight.value),
             backgroundColor: Colors.red,
@@ -117,6 +106,5 @@ class LoginNotifier extends ChangeNotifier {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('logged_in', false);
     await prefs.remove('token');
-    _firstTime = false;
   }
 }
