@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jobhub/models/request/auth/signup_model.dart';
 import 'package:jobhub/services/helpers/auth_helper.dart';
-import 'package:jobhub/views/ui/auth/login.dart';
+import 'package:jobhub/views/ui/auth/update_user.dart';
 
 import '../constants/app_constants.dart';
 
@@ -27,16 +27,6 @@ class SignUpNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-// triggered when the fist time when user login to be prompted to the update profile page
-  bool _firstTime = false;
-
-  bool get firstTime => _firstTime;
-
-  set firstTime(bool newValue) {
-    _firstTime = newValue;
-    notifyListeners();
-  }
-
   final signupFormKey = GlobalKey<FormState>();
 
   bool passwordValidator(String password) {
@@ -57,22 +47,24 @@ class SignUpNotifier extends ChangeNotifier {
   }
 
   signUp({required SignupModel model}) {
-    AuthHelper.signUp(model: model).then((response) {
-      if (response) {
-        Get.offAll(
-          () => LoginPage(),
-          transition: Transition.fade,
-          duration: Duration(seconds: 2),
-        );
-      } else {
-        Get.snackbar(
-          'Sign up Failed',
-          'Please check your credentials',
-          colorText: Color(kLight.value),
-          backgroundColor: Color(kOrange.value),
-          icon: Icon(Icons.add_alert),
-        );
-      }
-    });
+    AuthHelper.signUp(model: model).then(
+      (response) {
+        if (response) {
+          Get.offAll(
+            () => PersonalDetails(),
+            transition: Transition.fade,
+            duration: Duration(seconds: 2),
+          );
+        } else {
+          Get.snackbar(
+            'Sign up Failed',
+            'Please check your credentials',
+            colorText: Color(kLight.value),
+            backgroundColor: Color(kOrange.value),
+            icon: Icon(Icons.add_alert),
+          );
+        }
+      },
+    );
   }
 }
