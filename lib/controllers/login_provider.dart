@@ -105,7 +105,7 @@ class LoginNotifier extends ChangeNotifier {
             'Updating Failed',
             'Please try again',
             colorText: Color(kLight.value),
-            backgroundColor: Color(kLightBlue.value),
+            backgroundColor: Color(kOrange.value),
             icon: Icon(Icons.add_alert),
           );
         }
