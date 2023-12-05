@@ -5,6 +5,7 @@ import 'package:jobhub/models/request/auth/login_model.dart';
 import 'package:jobhub/models/request/auth/profile_update_model.dart';
 import 'package:jobhub/models/request/auth/signup_model.dart';
 import 'package:jobhub/models/response/auth/login_res_model.dart';
+import 'package:jobhub/models/response/auth/sign_up_res_model.dart';
 import 'package:jobhub/services/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -62,6 +63,7 @@ class AuthHelper {
   }
 
   static Future<bool> signUp({required SignupModel model}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
     var url = Uri.https(Config.apiUrl, Config.signupUrl);
     var response = await client.post(
@@ -70,6 +72,10 @@ class AuthHelper {
       body: jsonEncode(model),
     );
     if (response.statusCode == 201) {
+      String token = signUpResponseModelFromJson(response.body).userToken;
+      String userId = signUpResponseModelFromJson(response.body).id;
+      await prefs.setString('token', token);
+      await prefs.setString('user_id', userId);
       return true;
     } else {
       return false;

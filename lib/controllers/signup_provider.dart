@@ -53,7 +53,7 @@ class SignUpNotifier extends ChangeNotifier {
           Get.offAll(
             () => PersonalDetails(),
             transition: Transition.fade,
-            duration: Duration(seconds: 2),
+            duration: Duration(seconds: 1),
           );
         } else {
           Get.snackbar(
