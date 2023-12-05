@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:jobhub/controllers/exports.dart';
 import 'package:jobhub/views/common/exports.dart';
 import 'package:jobhub/views/common/height_spacer.dart';
 import 'package:jobhub/views/ui/device_mgt/widgets/device_info.dart';
-import 'package:jobhub/views/ui/onboarding/onboarding_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/app_bar.dart';
@@ -76,7 +74,7 @@ class DeviceManagement extends StatelessWidget {
                     onTap: () {
                       zoomNotifier.currentIndex = 0;
                       onBoardingNotifier.isLastPage = false;
-                      Get.offAll(() => OnBoardingScreen());
+                      loginNotifier.logout();
                     },
                     child: Align(
                       alignment: Alignment.bottomCenter,

@@ -71,6 +71,7 @@ class AuthHelper {
       headers: requestHeaders,
       body: jsonEncode(model),
     );
+    print(response.body);
     if (response.statusCode == 201) {
       String token = signUpResponseModelFromJson(response.body).userToken;
       String userId = signUpResponseModelFromJson(response.body).id;

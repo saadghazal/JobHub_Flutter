@@ -4,6 +4,7 @@ import 'package:jobhub/constants/app_constants.dart';
 import 'package:jobhub/models/request/auth/login_model.dart';
 import 'package:jobhub/models/request/auth/profile_update_model.dart';
 import 'package:jobhub/services/helpers/auth_helper.dart';
+import 'package:jobhub/views/ui/auth/login.dart';
 import 'package:jobhub/views/ui/mainscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -106,5 +107,6 @@ class LoginNotifier extends ChangeNotifier {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('logged_in', false);
     await prefs.remove('token');
+    Get.offAll(() => LoginPage());
   }
 }
