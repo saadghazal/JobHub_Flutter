@@ -9,7 +9,6 @@ import 'package:jobhub/views/common/custom_textfield.dart';
 import 'package:jobhub/views/common/exports.dart';
 import 'package:jobhub/views/common/height_spacer.dart';
 import 'package:jobhub/views/ui/auth/signup.dart';
-import 'package:jobhub/views/ui/mainscreen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/request/auth/login_model.dart';
@@ -106,8 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         suffixIcon: GestureDetector(
                           onTap: () {
-                            loginProvider.obscureText =
-                                !loginProvider.obscureText;
+                            loginProvider.obscureText = !loginProvider.obscureText;
                           },
                           child: Icon(
                             loginProvider.obscureText
@@ -125,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: () {
-                      Get.to(
+                      Get.offAll(
                         () => const RegistrationPage(),
                       );
                     },
@@ -143,8 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                 CustomButton(
                   onTap: () {
                     if (loginProvider.validateAndSave()) {
-                      LoginModel model = LoginModel(
-                          email: email.text, password: password.text);
+                      LoginModel model = LoginModel(email: email.text, password: password.text);
                       loginProvider.userLogin(model: model);
                     } else {
                       Get.snackbar(
