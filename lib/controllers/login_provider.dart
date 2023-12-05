@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jobhub/constants/app_constants.dart';
 import 'package:jobhub/models/request/auth/login_model.dart';
+import 'package:jobhub/models/request/auth/profile_update_model.dart';
 import 'package:jobhub/services/helpers/auth_helper.dart';
 import 'package:jobhub/views/ui/auth/update_user.dart';
 import 'package:jobhub/views/ui/mainscreen.dart';
@@ -83,6 +84,33 @@ class LoginNotifier extends ChangeNotifier {
             icon: Icon(Icons.add_alert));
       }
     });
+  }
+
+  updateProfile({required ProfileUpdateReq profileReq}) async {
+    AuthHelper.updateProfile(profileReq: profileReq).then(
+      (response) {
+        if (response) {
+          Get.snackbar(
+            'Profile Updated',
+            'Enjoy your search for a job',
+            colorText: Color(kLight.value),
+            backgroundColor: Color(kLightBlue.value),
+            icon: Icon(Icons.add_alert),
+          );
+          Future.delayed(Duration(seconds: 2), () {
+            Get.offAll(() => MainScreen());
+          });
+        } else {
+          Get.snackbar(
+            'Updating Failed',
+            'Please try again',
+            colorText: Color(kLight.value),
+            backgroundColor: Color(kLightBlue.value),
+            icon: Icon(Icons.add_alert),
+          );
+        }
+      },
+    );
   }
 
   logout() async {

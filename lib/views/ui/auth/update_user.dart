@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:jobhub/controllers/exports.dart';
+import 'package:jobhub/models/request/auth/profile_update_model.dart';
 import 'package:jobhub/views/common/custom_btn.dart';
 import 'package:jobhub/views/common/custom_textfield.dart';
 import 'package:jobhub/views/common/exports.dart';
@@ -180,9 +182,43 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                       },
                     ),
                     HeightSpacer(size: 20),
-                    CustomButton(
-                      onTap: () {},
-                      text: 'Update Profile',
+                    Consumer<ImageUploader>(
+                      builder: (context, imageUploader, child) {
+                        return CustomButton(
+                          onTap: () {
+                            if (loginProvider.profileValidation()) {
+                              if (imageUploader.imageFil.isEmpty &&
+                                  imageUploader.imageUrl == null) {
+                                Get.snackbar(
+                                  'Image Missing',
+                                  'Please upload an image to proceed',
+                                  colorText: Color(kLight.value),
+                                  backgroundColor: Color(kLightBlue.value),
+                                  icon: Icon(Icons.add_alert),
+                                );
+                              } else {
+                                ProfileUpdateReq profile = ProfileUpdateReq(
+                                  location: location.text,
+                                  phone: phone.text,
+                                  profile: imageUploader.imageUrl.toString(),
+                                  skills: [
+                                    skill0.text,
+                                    skill1.text,
+                                    skill2.text,
+                                    skill3.text,
+                                    skill4.text
+                                  ],
+                                );
+                                loginProvider.updateProfile(
+                                    profileReq: profile);
+                              }
+                            } else {
+                              return;
+                            }
+                          },
+                          text: 'Update Profile',
+                        );
+                      },
                     )
                   ],
                 ),
