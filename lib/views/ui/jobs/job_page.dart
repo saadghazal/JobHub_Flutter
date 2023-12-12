@@ -61,12 +61,11 @@ class _JobPageState extends State<JobPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/images/${widget.title}.png'),
+                        backgroundImage: AssetImage('assets/images/${widget.title}.png'),
                       ),
                       HeightSpacer(size: 10),
                       ReusableText(
-                        text: 'Senior Flutter Developer',
+                        text: widget.title,
                         style: appstyle(
                           22,
                           Color(kDark.value),
@@ -157,7 +156,6 @@ class _JobPageState extends State<JobPage> {
                 SizedBox(
                   height: height * 0.6,
                   child: ListView.builder(
-
                     itemBuilder: (context, index) {
                       final req = requirements[index];
                       String bullet = '\u2022';
