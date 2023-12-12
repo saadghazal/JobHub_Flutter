@@ -22,4 +22,23 @@ class JobsHelper {
       throw Exception("Failed To Get The Jobs");
     }
   }
+
+  static Future<JobsResponse> getRecentJobs() async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+    var url = Uri.https(Config.apiUrl, Config.jobs);
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+    if (response.statusCode == 200) {
+      var jobs = jobsResponseFromJson(response.body);
+
+      var recent = jobs.first;
+      return recent;
+    } else {
+      throw Exception("Failed To Get The Jobs");
+    }
+  }
 }
