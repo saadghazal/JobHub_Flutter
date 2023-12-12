@@ -23,7 +23,7 @@ class JobsHelper {
     }
   }
 
-  static Future<JobsResponse> getRecentJobs() async {
+  static Future<JobsResponse> getRecentJob() async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
