@@ -9,6 +9,7 @@ import 'package:jobhub/views/common/drawer/drawer_widget.dart';
 import 'package:jobhub/views/common/heading_widget.dart';
 import 'package:jobhub/views/common/height_spacer.dart';
 import 'package:jobhub/views/common/search.dart';
+import 'package:jobhub/views/common/vertical_shimmer.dart';
 import 'package:jobhub/views/common/vertical_tile.dart';
 import 'package:jobhub/views/ui/jobs/job_page.dart';
 import 'package:jobhub/views/ui/jobs/widgets/horizontal_shimmer.dart';
@@ -48,6 +49,7 @@ class _HomePageState extends State<HomePage> {
       body: Consumer<JobsNotifier>(
         builder: (context, jobsNotifier, child) {
           jobsNotifier.getJobs();
+          jobsNotifier.getRecentJob();
           return SafeArea(
             child: SingleChildScrollView(
               child: Padding(
@@ -90,7 +92,6 @@ class _HomePageState extends State<HomePage> {
                             return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                print(Jobs[index].title);
                                 return JobHorizontalTile(
                                   job: Jobs[index],
                                   onTap: () {
@@ -115,7 +116,22 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {},
                     ),
                     HeightSpacer(size: 20),
-                    VerticalTile(),
+                    FutureBuilder(
+                      future: jobsNotifier.recentJob,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return VerticalShimmer();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          final recentJob = snapshot.data;
+
+                          return VerticalTile(
+                            recentJob: recentJob!,
+                          );
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),
