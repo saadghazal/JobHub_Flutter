@@ -24,7 +24,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Widget build(BuildContext context) {
     return Consumer<ZoomNotifier>(builder: (context, zoomNotifier, child) {
       return GestureDetector(
-        onDoubleTap: () {
+        onTap: () {
           ZoomDrawer.of(context)!.toggle();
         },
         child: Scaffold(
@@ -37,41 +37,31 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 AntDesign.home,
                 "Home",
                 0,
-                zoomNotifier.currentIndex == 0
-                    ? Color(kLight.value)
-                    : Color(kLightGrey.value),
+                zoomNotifier.currentIndex == 0 ? Color(kLight.value) : Color(kLightGrey.value),
               ),
               drawerItem(
                 Ionicons.chatbubble_outline,
                 "Chat",
                 1,
-                zoomNotifier.currentIndex == 1
-                    ? Color(kLight.value)
-                    : Color(kLightGrey.value),
+                zoomNotifier.currentIndex == 1 ? Color(kLight.value) : Color(kLightGrey.value),
               ),
               drawerItem(
                 Fontisto.bookmark,
                 "Bookmarks",
                 2,
-                zoomNotifier.currentIndex == 2
-                    ? Color(kLight.value)
-                    : Color(kLightGrey.value),
+                zoomNotifier.currentIndex == 2 ? Color(kLight.value) : Color(kLightGrey.value),
               ),
               drawerItem(
                 MaterialCommunityIcons.devices,
                 "Device Management",
                 3,
-                zoomNotifier.currentIndex == 3
-                    ? Color(kLight.value)
-                    : Color(kLightGrey.value),
+                zoomNotifier.currentIndex == 3 ? Color(kLight.value) : Color(kLightGrey.value),
               ),
               drawerItem(
                 FontAwesome5Regular.user_circle,
                 "Profile",
                 4,
-                zoomNotifier.currentIndex == 4
-                    ? Color(kLight.value)
-                    : Color(kLightGrey.value),
+                zoomNotifier.currentIndex == 4 ? Color(kLight.value) : Color(kLightGrey.value),
               ),
             ],
           ),
@@ -79,19 +69,24 @@ class _DrawerScreenState extends State<DrawerScreen> {
       );
     });
   }
-  Widget drawerItem(IconData icon, String label, index, Color color)
-  {
+
+  Widget drawerItem(IconData icon, String label, index, Color color) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         widget.indexSetter(index);
         ZoomDrawer.of(context)!.toggle();
       },
       child: Container(
-        margin: EdgeInsets.only(left: 20.w,bottom: 20.h),
+        margin: EdgeInsets.only(left: 20.w, bottom: 20.h),
         child: Row(
           children: [
-            Icon(icon,color: color,),
-            const WidthSpacer(width: 12,),
+            Icon(
+              icon,
+              color: color,
+            ),
+            const WidthSpacer(
+              width: 12,
+            ),
             ReusableText(
               text: label,
               style: appstyle(
@@ -105,5 +100,4 @@ class _DrawerScreenState extends State<DrawerScreen> {
       ),
     );
   }
-
 }

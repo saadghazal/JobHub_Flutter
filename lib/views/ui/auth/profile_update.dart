@@ -233,7 +233,6 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                                 skill4.text
                               ],
                             );
-                            print(profile.profile);
                             loginNotifier.updateProfile(profileReq: profile);
                           }
                         } else {
