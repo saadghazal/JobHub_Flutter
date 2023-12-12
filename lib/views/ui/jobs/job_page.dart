@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:jobhub/constants/app_constants.dart';
+import 'package:jobhub/models/response/jobs/jobs_response.dart';
 import 'package:jobhub/views/common/app_bar.dart';
 import 'package:jobhub/views/common/custom_btn.dart';
 import 'package:jobhub/views/common/custom_outline_btn.dart';
@@ -12,12 +13,10 @@ import 'package:jobhub/views/common/height_spacer.dart';
 
 class JobPage extends StatefulWidget {
   const JobPage({
-    required this.title,
-    required this.id,
+    required this.job,
     super.key,
   });
-  final String title;
-  final String id;
+  final JobsResponse job;
 
   @override
   State<JobPage> createState() => _JobPageState();
@@ -30,7 +29,7 @@ class _JobPageState extends State<JobPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h),
         child: CustomAppBar(
-          text: widget.title,
+          text: widget.job.title,
           actions: [
             Padding(
               padding: EdgeInsets.only(right: 12.w),
@@ -56,16 +55,19 @@ class _JobPageState extends State<JobPage> {
                 Container(
                   width: width,
                   height: height * 0.27,
-                  color: Color(kLightGrey.value),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.r),
+                    color: Color(kLightGrey.value),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                        backgroundImage: AssetImage('assets/images/${widget.title}.png'),
+                        backgroundImage: NetworkImage(widget.job.imageUrl),
                       ),
                       HeightSpacer(size: 10),
                       ReusableText(
-                        text: widget.title,
+                        text: widget.job.title,
                         style: appstyle(
                           22,
                           Color(kDark.value),
@@ -74,7 +76,7 @@ class _JobPageState extends State<JobPage> {
                       ),
                       HeightSpacer(size: 5),
                       ReusableText(
-                        text: 'New York',
+                        text: widget.job.location,
                         style: appstyle(
                           16,
                           Color(kDarkGrey.value),
@@ -91,13 +93,13 @@ class _JobPageState extends State<JobPage> {
                               width: width * 0.26,
                               height: height * 0.04,
                               color2: Color(kLight.value),
-                              text: 'Full-Time',
+                              text: widget.job.period,
                               color: Color(kOrange.value),
                             ),
                             Row(
                               children: [
                                 ReusableText(
-                                  text: '15k',
+                                  text: widget.job.salary,
                                   style: appstyle(
                                     22,
                                     Color(kDark.value),
@@ -107,7 +109,7 @@ class _JobPageState extends State<JobPage> {
                                 SizedBox(
                                   width: width * 0.2,
                                   child: ReusableText(
-                                    text: '/Monthly',
+                                    text: '/${widget.job.contract}',
                                     style: appstyle(
                                       20,
                                       Color(kDarkGrey.value),
@@ -134,7 +136,7 @@ class _JobPageState extends State<JobPage> {
                 ),
                 HeightSpacer(size: 10),
                 Text(
-                  desc,
+                  widget.job.description,
                   textAlign: TextAlign.justify,
                   maxLines: 8,
                   style: appstyle(
@@ -157,7 +159,7 @@ class _JobPageState extends State<JobPage> {
                   height: height * 0.6,
                   child: ListView.builder(
                     itemBuilder: (context, index) {
-                      final req = requirements[index];
+                      final req = widget.job.requirements[index];
                       String bullet = '\u2022';
                       return Text(
                         '$bullet $req\n',
@@ -170,7 +172,7 @@ class _JobPageState extends State<JobPage> {
                         ),
                       );
                     },
-                    itemCount: requirements.length,
+                    itemCount: widget.job.requirements.length,
                   ),
                 ),
                 HeightSpacer(size: 20),
