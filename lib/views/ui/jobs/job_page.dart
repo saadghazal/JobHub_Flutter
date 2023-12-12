@@ -93,7 +93,7 @@ class _JobPageState extends State<JobPage> {
                               width: width * 0.26,
                               height: height * 0.04,
                               color2: Color(kLight.value),
-                              text: widget.job.period,
+                              text: widget.job.period.capitalizeFirst!,
                               color: Color(kOrange.value),
                             ),
                             Row(
@@ -109,7 +109,7 @@ class _JobPageState extends State<JobPage> {
                                 SizedBox(
                                   width: width * 0.2,
                                   child: ReusableText(
-                                    text: '/${widget.job.contract}',
+                                    text: '/${widget.job.contract.toUpperCase()}',
                                     style: appstyle(
                                       20,
                                       Color(kDarkGrey.value),
