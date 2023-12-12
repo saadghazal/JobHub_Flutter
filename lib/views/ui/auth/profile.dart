@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:get/get.dart';
 import 'package:jobhub/controllers/exports.dart';
 import 'package:jobhub/models/response/auth/profile_model.dart';
 import 'package:jobhub/views/common/exports.dart';
 import 'package:jobhub/views/common/height_spacer.dart';
 import 'package:jobhub/views/common/width_spacer.dart';
+import 'package:jobhub/views/ui/auth/profile_update.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/app_bar.dart';
@@ -63,11 +65,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               Row(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(20.r),
+                                    borderRadius: BorderRadius.circular(50.r),
                                     child: CachedNetworkImage(
                                       width: 80.w,
-                                      height: 100.h,
+                                      height: 80.h,
                                       imageUrl: UserData!.profileImage,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                   WidthSpacer(width: 10),
@@ -106,7 +109,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                               GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Get.to(
+                                    () => ProfileUpdate(
+                                      profileData: UserData.skills,
+                                    ),
+                                  );
+                                },
                                 child: Icon(
                                   Feather.edit,
                                   size: 18.sp,
