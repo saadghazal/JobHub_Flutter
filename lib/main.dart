@@ -80,6 +80,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             scaffoldBackgroundColor: Color(kLight.value),
             iconTheme: IconThemeData(color: Color(kDark.value)),
+            appBarTheme: AppBarTheme(scrolledUnderElevation: 0.0),
             primarySwatch: Colors.grey,
           ),
           home: defaultHomeScreen,

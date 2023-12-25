@@ -60,4 +60,21 @@ class JobsHelper {
       throw Exception("Failed To Get The Job");
     }
   }
+
+  static Future<List<JobsResponse>> searchJobs({required String searchQuery}) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+    var url = Uri.https(Config.apiUrl, '${Config.search}/$searchQuery');
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+    if (response.statusCode == 200) {
+      var jobs = jobsResponseFromJson(response.body);
+      return jobs;
+    } else {
+      throw Exception("Failed To Get The Jobs");
+    }
+  }
 }

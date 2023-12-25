@@ -43,6 +43,7 @@ class JobListPage extends StatelessWidget {
           } else {
             final jobs = snapshot.data;
             return ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
               itemBuilder: (context, index) {
                 return VerticalTileWidget(
                   job: jobs[index],

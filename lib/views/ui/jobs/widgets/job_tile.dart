@@ -6,6 +6,7 @@ import 'package:jobhub/constants/app_constants.dart';
 import 'package:jobhub/models/response/jobs/jobs_response.dart';
 import 'package:jobhub/views/common/exports.dart';
 import 'package:jobhub/views/common/width_spacer.dart';
+import 'package:jobhub/views/ui/jobs/job_page.dart';
 
 class VerticalTileWidget extends StatelessWidget {
   const VerticalTileWidget({
@@ -19,12 +20,17 @@ class VerticalTileWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: 12.h),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Get.to(() => JobPage(job: job));
+        },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           height: height * 0.15,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.r),
+            color: Color(kLightGrey.value),
+          ),
           width: width,
-          color: Color(kLightGrey.value),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

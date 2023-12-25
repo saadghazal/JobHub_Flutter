@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-List<BookmarkResModel> bookmarkResModelFromJson(String str) =>
-    List<BookmarkResModel>.from(
+List<BookmarkResModel> bookmarkResModelFromJson(String str) => List<BookmarkResModel>.from(
       json.decode(str).map(
             (x) => BookmarkResModel.fromJson(x),
           ),
@@ -34,13 +33,12 @@ class BookmarkResModel {
   final String company;
   final String location;
 
-  factory BookmarkResModel.fromJson(Map<String, dynamic> json) =>
-      BookmarkResModel(
+  factory BookmarkResModel.fromJson(Map<String, dynamic> json) => BookmarkResModel(
         id: json["_id"],
         job: json["job"],
-        userId: json["userId"],
+        userId: json["user_id"],
         title: json["title"],
-        imageUrl: json["imageUrl"],
+        imageUrl: json["image_url"],
         company: json["company"],
         location: json["location"],
       );

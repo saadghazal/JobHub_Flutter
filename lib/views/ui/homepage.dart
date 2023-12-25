@@ -129,6 +129,9 @@ class _HomePageState extends State<HomePage> {
                           final recentJob = snapshot.data;
 
                           return VerticalTile(
+                            onTap: () {
+                              Get.to(() => JobPage(job: recentJob));
+                            },
                             recentJob: recentJob!,
                           );
                         }

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:jobhub/constants/app_constants.dart';
+import 'package:jobhub/models/response/jobs/jobs_response.dart';
+import 'package:jobhub/services/helpers/jobs_helper.dart';
 import 'package:jobhub/views/common/exports.dart';
 import 'package:jobhub/views/common/height_spacer.dart';
+import 'package:jobhub/views/ui/jobs/widgets/job_tile.dart';
 import 'package:jobhub/views/ui/search/widgets/custom_field.dart';
 
 class SearchPage extends StatefulWidget {
@@ -17,8 +20,8 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController searchController = TextEditingController();
   @override
   void dispose() {
-    // TODO: implement dispose
     searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -31,6 +34,9 @@ class _SearchPageState extends State<SearchPage> {
         title: CustomField(
           hintText: 'Search for a job',
           controller: searchController,
+          onEditingComplete: () {
+            setState(() {});
+          },
           suffixIcon: GestureDetector(
             onTap: () {
               setState(() {});
@@ -39,24 +45,67 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20.h),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/images/optimized_search.png'),
-              HeightSpacer(size: 20),
-              ReusableText(
-                text: 'Start Searching for Jobs',
-                style: appstyle(
-                  24,
-                  Color(kDark.value),
-                  FontWeight.bold,
-                ),
+      body: searchController.text.isEmpty
+          ? SearchLoading(
+              text: 'Start Searching For Job',
+            )
+          : Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+              child: FutureBuilder<List<JobsResponse>>(
+                future: JobsHelper.searchJobs(searchQuery: searchController.text),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: Color(kLightBlue.value),
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.data!.isEmpty) {
+                    return SearchLoading(text: 'Job Not Found');
+                  } else {
+                    final jobs = snapshot.data;
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return VerticalTileWidget(job: jobs[index]);
+                      },
+                      itemCount: jobs!.length,
+                    );
+                  }
+                },
               ),
-            ],
-          ),
+            ),
+    );
+  }
+}
+
+class SearchLoading extends StatelessWidget {
+  const SearchLoading({
+    super.key,
+    required this.text,
+  });
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(20.h),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/optimized_search.png'),
+            HeightSpacer(size: 20),
+            ReusableText(
+              text: text,
+              style: appstyle(
+                24,
+                Color(kDark.value),
+                FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );
