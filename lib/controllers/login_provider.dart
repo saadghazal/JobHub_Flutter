@@ -68,10 +68,13 @@ class LoginNotifier extends ChangeNotifier {
       if (response) {
         Get.offAll(() => MainScreen());
       } else {
-        Get.snackbar('Sign in Failed', 'Please Check Your Credentials',
-            colorText: Color(kLight.value),
-            backgroundColor: Colors.red,
-            icon: Icon(Icons.add_alert));
+        Get.snackbar(
+          'Sign in Failed',
+          'Please Check Your Credentials',
+          colorText: Color(kLight.value),
+          backgroundColor: Colors.red,
+          icon: Icon(Icons.add_alert),
+        );
       }
     });
   }

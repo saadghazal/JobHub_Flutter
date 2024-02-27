@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  flutter_screenutil: ^5.7.0
+  flutter_screenutil: ^5.9.0
   provider: ^6.0.5
   http: ^0.13.5
   flutter_vector_icons: ^2.0.0
