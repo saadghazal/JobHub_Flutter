@@ -21,7 +21,22 @@ class VerticalTileWidget extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 12.h),
       child: GestureDetector(
         onTap: () {
-          Get.to(() => JobPage(job: job));
+          Get.to(
+            () => JobPage(
+              id: job.id,
+              title: job.title,
+              location: job.location,
+              company: job.company,
+              hiring: job.hiring,
+              description: job.description,
+              salary: job.salary,
+              period: job.period,
+              contract: job.contract,
+              requirements: job.requirements,
+              imageUrl: job.imageUrl,
+              agentId: job.agentId,
+            ),
+          );
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),

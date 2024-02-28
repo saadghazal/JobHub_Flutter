@@ -95,12 +95,24 @@ class _HomePageState extends State<HomePage> {
                             return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
+                                final job = Jobs[index];
                                 return JobHorizontalTile(
                                   job: Jobs[index],
                                   onTap: () {
                                     Get.to(
                                       () => JobPage(
-                                        job: Jobs[index],
+                                        id: job.id,
+                                        title: job.title,
+                                        location: job.location,
+                                        company: job.company,
+                                        hiring: job.hiring,
+                                        description: job.description,
+                                        salary: job.salary,
+                                        period: job.period,
+                                        contract: job.contract,
+                                        requirements: job.requirements,
+                                        imageUrl: job.imageUrl,
+                                        agentId: job.agentId,
                                       ),
                                     );
                                   },
@@ -126,13 +138,26 @@ class _HomePageState extends State<HomePage> {
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else {
-                          final recentJob = snapshot.data;
+                          final job = snapshot.data!;
 
                           return VerticalTile(
                             onTap: () {
-                              Get.to(() => JobPage(job: recentJob));
+                              Get.to(() => JobPage(
+                                    id: job.id,
+                                    title: job.title,
+                                    location: job.location,
+                                    company: job.company,
+                                    hiring: job.hiring,
+                                    description: job.description,
+                                    salary: job.salary,
+                                    period: job.period,
+                                    contract: job.contract,
+                                    requirements: job.requirements,
+                                    imageUrl: job.imageUrl,
+                                    agentId: job.agentId,
+                                  ));
                             },
-                            recentJob: recentJob!,
+                            recentJob: job,
                           );
                         }
                       },

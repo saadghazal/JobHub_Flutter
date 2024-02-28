@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -87,12 +88,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
             const WidthSpacer(
               width: 12,
             ),
-            ReusableText(
-              text: label,
-              style: appstyle(
-                12,
-                color,
-                FontWeight.bold,
+            Expanded(
+              child: ReusableText(
+                text: label,
+                style: appstyle(
+                  12,
+                  color,
+                  FontWeight.bold,
+                ),
               ),
             ),
           ],

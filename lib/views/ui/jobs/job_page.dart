@@ -17,11 +17,32 @@ import 'package:provider/provider.dart';
 
 class JobPage extends StatefulWidget {
   const JobPage({
-    required this.job,
+    required this.id,
+    required this.title,
+    required this.location,
+    required this.company,
+    this.hiring = true,
+    required this.description,
+    required this.salary,
+    required this.period,
+    required this.contract,
+    required this.requirements,
+    required this.imageUrl,
+    required this.agentId,
     super.key,
   });
-
-  final JobsResponse job;
+  final String id;
+  final String title;
+  final String location;
+  final String company;
+  final bool hiring;
+  final String description;
+  final String salary;
+  final String period;
+  final String contract;
+  final List<String> requirements;
+  final String imageUrl;
+  final String agentId;
 
   @override
   State<JobPage> createState() => _JobPageState();
@@ -34,7 +55,7 @@ class _JobPageState extends State<JobPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.h),
         child: CustomAppBar(
-          text: widget.job.title,
+          text: widget.company,
           actions: [
             Consumer<BookMarkNotifier>(
               builder: (context, bookmarkNotifier, child) {
@@ -42,18 +63,18 @@ class _JobPageState extends State<JobPage> {
 
                 return GestureDetector(
                   onTap: () {
-                    if (bookmarkNotifier.jobs.contains(widget.job.id)) {
+                    if (bookmarkNotifier.jobs.contains(widget.id)) {
                       // delete
-                      bookmarkNotifier.deleteBookmark(widget.job.id);
+                      bookmarkNotifier.deleteBookmark(widget.id);
                     } else {
                       // add
-                      BookmarkRequest model = BookmarkRequest(job: widget.job.id);
-                      bookmarkNotifier.addBookmark(model, widget.job.id);
+                      BookmarkRequest model = BookmarkRequest(job: widget.id);
+                      bookmarkNotifier.addBookmark(model, widget.id);
                     }
                   },
                   child: Padding(
                     padding: EdgeInsets.only(right: 12.w),
-                    child: !bookmarkNotifier.jobs.contains(widget.job.id)
+                    child: !bookmarkNotifier.jobs.contains(widget.id)
                         ? Icon(Fontisto.bookmark)
                         : Icon(Fontisto.bookmark_alt),
                   ),
@@ -88,11 +109,11 @@ class _JobPageState extends State<JobPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                        backgroundImage: NetworkImage(widget.job.imageUrl),
+                        backgroundImage: NetworkImage(widget.imageUrl),
                       ),
                       HeightSpacer(size: 10),
                       ReusableText(
-                        text: widget.job.title,
+                        text: widget.title,
                         style: appstyle(
                           22,
                           Color(kDark.value),
@@ -101,7 +122,7 @@ class _JobPageState extends State<JobPage> {
                       ),
                       HeightSpacer(size: 5),
                       ReusableText(
-                        text: widget.job.location,
+                        text: widget.location,
                         style: appstyle(
                           16,
                           Color(kDarkGrey.value),
@@ -118,13 +139,13 @@ class _JobPageState extends State<JobPage> {
                               width: width * 0.26,
                               height: height * 0.04,
                               color2: Color(kLight.value),
-                              text: widget.job.period.capitalizeFirst!,
+                              text: widget.period.capitalizeFirst!,
                               color: Color(kOrange.value),
                             ),
                             Row(
                               children: [
                                 ReusableText(
-                                  text: widget.job.salary,
+                                  text: widget.salary,
                                   style: appstyle(
                                     22,
                                     Color(kDark.value),
@@ -134,7 +155,7 @@ class _JobPageState extends State<JobPage> {
                                 SizedBox(
                                   width: width * 0.2,
                                   child: ReusableText(
-                                    text: '/${widget.job.contract.toUpperCase()}',
+                                    text: '/${widget.contract.toUpperCase()}',
                                     style: appstyle(
                                       20,
                                       Color(kDarkGrey.value),
@@ -161,7 +182,7 @@ class _JobPageState extends State<JobPage> {
                 ),
                 HeightSpacer(size: 10),
                 Text(
-                  widget.job.description,
+                  widget.description,
                   textAlign: TextAlign.justify,
                   maxLines: 8,
                   style: appstyle(
@@ -184,7 +205,7 @@ class _JobPageState extends State<JobPage> {
                   height: height * 0.6,
                   child: ListView.builder(
                     itemBuilder: (context, index) {
-                      final req = widget.job.requirements[index];
+                      final req = widget.requirements[index];
                       String bullet = '\u2022';
                       return Text(
                         '$bullet $req\n',
@@ -197,7 +218,7 @@ class _JobPageState extends State<JobPage> {
                         ),
                       );
                     },
-                    itemCount: widget.job.requirements.length,
+                    itemCount: widget.requirements.length,
                   ),
                 ),
                 HeightSpacer(size: 20),

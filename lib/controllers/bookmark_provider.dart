@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobhub/models/request/bookmarks/bookmarks_model.dart';
+import 'package:jobhub/models/response/bookmarks/all_bookmarks.dart';
 import 'package:jobhub/services/helpers/book_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,6 +9,7 @@ import 'package:get/get.dart';
 
 class BookMarkNotifier extends ChangeNotifier {
   List<String> _jobs = [];
+  Future<List<AllBookmark>>? bookmarks;
 
   List<String> get jobs => _jobs;
 
@@ -88,5 +90,9 @@ class BookMarkNotifier extends ChangeNotifier {
         );
       }
     });
+  }
+
+  getBookmarks() {
+    bookmarks = BookMarkHelper.getBookmarks();
   }
 }

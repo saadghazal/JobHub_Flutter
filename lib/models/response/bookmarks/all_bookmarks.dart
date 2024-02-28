@@ -28,6 +28,7 @@ class Job {
   final String company;
   final String salary;
   final String period;
+  final String description;
   final String contract;
   final List<String> requirements;
   final String imageUrl;
@@ -44,6 +45,7 @@ class Job {
     required this.requirements,
     required this.imageUrl,
     required this.agentId,
+    required this.description,
   });
 
   factory Job.fromJson(Map<String, dynamic> json) => Job(
@@ -57,5 +59,6 @@ class Job {
         requirements: List<String>.from(json["requirements"].map((x) => x)),
         imageUrl: json["image_url"],
         agentId: json["agent_id"],
+        description: json['description'],
       );
 }
