@@ -33,4 +33,25 @@ class BookMarkHelper {
       return [false];
     }
   }
+
+  /// DELETE BOOKMARK
+  static Future<bool> deleteBookmark(String jobId) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'token': 'Bearer $token'
+    };
+    var url = Uri.https(Config.apiUrl, '${Config.bookmarkUrl}/$jobId');
+    var response = await client.delete(
+      url,
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
