@@ -1,21 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:jobhub/constants/app_constants.dart';
+import 'package:jobhub/controllers/exports.dart';
+import 'package:jobhub/models/request/bookmarks/bookmarks_model.dart';
 import 'package:jobhub/models/response/jobs/jobs_response.dart';
+import 'package:jobhub/services/helpers/book_helper.dart';
 import 'package:jobhub/views/common/app_bar.dart';
-import 'package:jobhub/views/common/custom_btn.dart';
 import 'package:jobhub/views/common/custom_outline_btn.dart';
 import 'package:jobhub/views/common/exports.dart';
 import 'package:jobhub/views/common/height_spacer.dart';
+import 'package:provider/provider.dart';
 
 class JobPage extends StatefulWidget {
   const JobPage({
     required this.job,
     super.key,
   });
+
   final JobsResponse job;
 
   @override
@@ -31,9 +36,28 @@ class _JobPageState extends State<JobPage> {
         child: CustomAppBar(
           text: widget.job.title,
           actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 12.w),
-              child: Icon(Entypo.bookmark),
+            Consumer<BookMarkNotifier>(
+              builder: (context, bookmarkNotifier, child) {
+                bookmarkNotifier.loadJobs();
+
+                return GestureDetector(
+                  onTap: () {
+                    if (bookmarkNotifier.jobs.contains(widget.job.id)) {
+                      // delete
+                    } else {
+                      // add
+                      BookmarkRequest model = BookmarkRequest(job: widget.job.id);
+                      bookmarkNotifier.addBookmark(model, widget.job.id);
+                    }
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 12.w),
+                    child: !bookmarkNotifier.jobs.contains(widget.job.id)
+                        ? Icon(Fontisto.bookmark)
+                        : Icon(Fontisto.bookmark_alt),
+                  ),
+                );
+              },
             ),
           ],
           child: GestureDetector(

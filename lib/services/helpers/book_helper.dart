@@ -25,7 +25,8 @@ class BookMarkHelper {
       headers: requestHeaders,
       body: jsonEncode(model.toJson()),
     );
-    if (response.statusCode == 200) {
+
+    if (response.statusCode == 201) {
       String bookmarkId = bookMarkReqResFromJson(response.body).id;
       return [true, bookmarkId];
     } else {

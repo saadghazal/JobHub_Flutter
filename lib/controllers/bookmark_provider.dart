@@ -18,14 +18,14 @@ class BookMarkNotifier extends ChangeNotifier {
 
   Future<void> addJob(String jobId) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (_jobs.isNotEmpty) {
+    if (_jobs != null) {
       _jobs.insert(0, jobId);
       prefs.setStringList('jobId', _jobs);
       notifyListeners();
     }
   }
 
-  Future<void> loadJobs(String jobId) async {
+  Future<void> loadJobs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final jobs = prefs.getStringList('jobId');
 
