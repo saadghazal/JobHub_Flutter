@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:jobhub/controllers/chat_provider.dart';
 import 'package:jobhub/models/response/chat/get_chat.dart';
 import 'package:jobhub/views/common/exports.dart';
+import 'package:jobhub/views/common/height_spacer.dart';
 import 'package:jobhub/views/common/loader.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +29,8 @@ class ChatList extends StatelessWidget {
       ),
       body: Consumer<ChatNotifier>(builder: (context, chatNotifier, child) {
         chatNotifier.getChats();
+        chatNotifier.getPrefs();
+        print(chatNotifier.userId);
         return FutureBuilder<List<GetChats>>(
           future: chatNotifier.chats,
           builder: (context, snapshot) {
@@ -51,7 +55,10 @@ class ChatList extends StatelessWidget {
             } else {
               final chats = snapshot.data;
               return ListView.builder(
+                padding: EdgeInsets.fromLTRB(20.w, 10.h, 20.w, 0),
                 itemBuilder: (context, index) {
+                  final chat = chats[index];
+                  final user = chat.users.where((user) => user.id != chatNotifier.userId);
                   return Padding(
                     padding: EdgeInsets.only(bottom: 8.h),
                     child: GestureDetector(
@@ -62,6 +69,56 @@ class ChatList extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Color(kLightGrey.value),
                           borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        child: ListTile(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 4.w),
+                          minLeadingWidth: 0,
+                          minVerticalPadding: 0,
+                          leading: CircleAvatar(
+                            radius: 30,
+                            backgroundImage: NetworkImage(user.first.profileImage),
+                          ),
+                          title: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ReusableText(
+                                text: user.first.username,
+                                style: appstyle(
+                                  16,
+                                  Color(kDark.value),
+                                  FontWeight.w600,
+                                ),
+                              ),
+                              const HeightSpacer(size: 5),
+                              ReusableText(
+                                text: chat.latestMessage.content,
+                                style: appstyle(
+                                  14,
+                                  Color(kDarkGrey.value),
+                                  FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                          trailing: Padding(
+                            padding: EdgeInsets.only(right: 4.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ReusableText(
+                                  text: chatNotifier.msgTime(chat.updatedAt.toString()),
+                                  style: appstyle(12, Color(kDark.value), FontWeight.normal),
+                                ),
+                                Icon(
+                                  chat.chatName == chatNotifier.userId
+                                      ? Ionicons.arrow_forward_circle_outline
+                                      : Ionicons.arrow_back_circle_outline,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),

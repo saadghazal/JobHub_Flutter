@@ -21,13 +21,16 @@ class AuthHelper {
       headers: requestHeaders,
       body: jsonEncode(model),
     );
+
     if (response.statusCode == 200) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
       String token = loginResponseModelFromJson(response.body).userToken;
       String profileImage = loginResponseModelFromJson(response.body).profileImage;
+      String userId = loginResponseModelFromJson(response.body).id;
 
       await prefs.setString('token', token);
+      await prefs.setString('userId', userId);
       await prefs.setString('profile_image', profileImage);
       await prefs.setBool('logged_in', true);
 
@@ -72,7 +75,9 @@ class AuthHelper {
     );
     if (response.statusCode == 201) {
       String token = signUpResponseModelFromJson(response.body).userToken;
+      String userId = signUpResponseModelFromJson(response.body).id;
       await prefs.setString('token', token);
+      await prefs.setString('userId', userId);
       await prefs.setBool('logged_in', true);
       return true;
     } else {
