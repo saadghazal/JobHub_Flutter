@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:get/get.dart';
 import 'package:jobhub/controllers/chat_provider.dart';
 import 'package:jobhub/models/response/chat/get_chat.dart';
 import 'package:jobhub/views/common/exports.dart';
 import 'package:jobhub/views/common/height_spacer.dart';
 import 'package:jobhub/views/common/loader.dart';
+import 'package:jobhub/views/ui/chat/chat_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/app_bar.dart';
@@ -62,7 +64,19 @@ class ChatList extends StatelessWidget {
                   return Padding(
                     padding: EdgeInsets.only(bottom: 8.h),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(
+                          () => ConversationPage(
+                            id: chat.id,
+                            title: user.first.username,
+                            profileImage: user.first.profileImage,
+                            users: [
+                              chat.users[0].id,
+                              chat.users[1].id,
+                            ],
+                          ),
+                        );
+                      },
                       child: Container(
                         height: 80,
                         width: width,

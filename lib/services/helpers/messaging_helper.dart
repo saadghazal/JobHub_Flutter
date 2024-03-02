@@ -41,14 +41,19 @@ class MessagingHelper {
       'Content-Type': 'application/json',
       'token': 'Bearer ${prefs.getString('token')}'
     };
-    var url = Uri.https(Config.apiUrl, Config.messaging);
-    var response = await client.post(
+    var url = Uri.https(
+      Config.apiUrl,
+      '${Config.messaging}/$chatId',
+      {"page": offset.toString()},
+    );
+    var response = await client.get(
       url,
       headers: requestHeaders,
     );
+
     if (response.statusCode == 200) {
       final messages = receivedMessagesFromJson(response.body);
-
+      print(messages[0].content);
       return messages;
     } else {
       throw Exception('Failed to load messages');
