@@ -55,6 +55,9 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => ProfileNotifier(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ChatNotifier(),
+        ),
       ],
       child: const MyApp(),
     ),

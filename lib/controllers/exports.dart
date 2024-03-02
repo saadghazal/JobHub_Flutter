@@ -6,3 +6,4 @@ export 'package:jobhub/controllers/onboarding_provider.dart';
 export 'package:jobhub/controllers/profile_provider.dart';
 export 'package:jobhub/controllers/signup_provider.dart';
 export 'package:jobhub/controllers/zoom_provider.dart';
+export 'package:jobhub/controllers/chat_provider.dart';

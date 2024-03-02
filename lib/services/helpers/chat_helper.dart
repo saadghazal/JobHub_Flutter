@@ -40,7 +40,7 @@ class ChatHelper {
       'token': 'Bearer ${prefs.getString('token')}'
     };
     var url = Uri.https(Config.apiUrl, Config.chats);
-    var response = await client.post(
+    var response = await client.get(
       url,
       headers: requestHeaders,
     );

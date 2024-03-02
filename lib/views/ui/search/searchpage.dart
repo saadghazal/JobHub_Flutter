@@ -9,6 +9,8 @@ import 'package:jobhub/views/common/height_spacer.dart';
 import 'package:jobhub/views/ui/jobs/widgets/job_tile.dart';
 import 'package:jobhub/views/ui/search/widgets/custom_field.dart';
 
+import '../../common/loader.dart';
+
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 
@@ -76,38 +78,6 @@ class _SearchPageState extends State<SearchPage> {
                 },
               ),
             ),
-    );
-  }
-}
-
-class SearchLoading extends StatelessWidget {
-  const SearchLoading({
-    super.key,
-    required this.text,
-  });
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.all(20.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/optimized_search.png'),
-            HeightSpacer(size: 20),
-            ReusableText(
-              text: text,
-              style: appstyle(
-                24,
-                Color(kDark.value),
-                FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

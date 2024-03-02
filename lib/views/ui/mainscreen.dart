@@ -5,7 +5,7 @@ import 'package:jobhub/constants/app_constants.dart';
 import 'package:jobhub/controllers/exports.dart';
 import 'package:jobhub/views/ui/auth/profile.dart';
 import 'package:jobhub/views/ui/bookmarks/bookmarks.dart';
-import 'package:jobhub/views/ui/chat/chatpage.dart';
+import 'package:jobhub/views/ui/chat/chat_list.dart';
 import 'package:jobhub/views/ui/device_mgt/devices_info.dart';
 import 'package:jobhub/views/ui/homepage.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +31,6 @@ class _MainScreenState extends State<MainScreen> {
           menuScreen: DrawerScreen(
             indexSetter: (index) {
               zoomNotifier.currentIndex = index;
-
             },
           ),
           mainScreen: currentScreen(),
@@ -51,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
       case 0:
         return const HomePage();
       case 1:
-        return const ChatsPage();
+        return const ChatList();
       case 2:
         return const BookMarkPage();
       case 3:
@@ -61,6 +60,4 @@ class _MainScreenState extends State<MainScreen> {
     }
     return Container();
   }
-
 }
-
